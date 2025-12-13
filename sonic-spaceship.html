@@ -97,71 +97,102 @@
             left: 0;
         }
         
-        .signup-section {
+        .info-box {
             background: #f8f9ff;
-            padding: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .info-box h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .info-box .date {
+            font-size: 1.3em;
+            color: #667eea;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .info-box .detail {
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .pricing-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
             border-radius: 15px;
             text-align: center;
             margin-top: 40px;
         }
         
-        .signup-section h2 {
-            color: #333;
-            margin-bottom: 20px;
+        .pricing-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
         }
         
-        .signup-section > p {
+        .price {
+            font-size: 3em;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        
+        .price-detail {
+            font-size: 1.1em;
+            opacity: 0.9;
             margin-bottom: 30px;
-            color: #666;
         }
         
-        /* Style the Kit.com form to match our design */
-        .signup-section form {
+        .cta-button {
+            display: inline-block;
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            margin: 0 auto;
+            color: #667eea;
+            text-decoration: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
-        /* Override Kit.com's default styles */
-        .signup-section input[type="email"],
-        .signup-section input[type="text"] {
-            width: 100% !important;
-            padding: 15px !important;
-            margin: 10px 0 !important;
-            border: 2px solid #e0e0e0 !important;
-            border-radius: 8px !important;
-            font-size: 16px !important;
-            font-family: inherit !important;
-            transition: border-color 0.2s !important;
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
         
-        .signup-section input[type="email"]:focus,
-        .signup-section input[type="text"]:focus {
-            outline: none !important;
-            border-color: #667eea !important;
+        .included-list {
+            text-align: left;
+            margin: 30px auto 40px;
+            max-width: 400px;
         }
         
-        .signup-section button[type="submit"],
-        .signup-section input[type="submit"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            color: white !important;
-            border: none !important;
-            padding: 15px 40px !important;
-            border-radius: 50px !important;
-            font-size: 16px !important;
-            font-weight: 600 !important;
-            cursor: pointer !important;
-            transition: transform 0.2s, box-shadow 0.2s !important;
-            margin-top: 10px !important;
-            width: 100% !important;
+        .included-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
         }
         
-        .signup-section button[type="submit"]:hover,
-        .signup-section input[type="submit"]:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4) !important;
+        .included-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .guarantee {
+            margin-top: 30px;
+            font-size: 0.95em;
+            opacity: 0.95;
+            font-style: italic;
         }
     </style>
 </head>
@@ -179,6 +210,13 @@
             <p>Sonic Spaceship is a transformative 3-hour experience that uses singing and vocal exploration as a gateway to embodiment. No singing experience required – just curiosity and a willingness to explore.</p>
         </div>
         
+        <div class="info-box">
+            <h3>📅 Next Session</h3>
+            <div class="date">January 20th, 2025</div>
+            <div class="detail">8:00 PM GMT (UK Time)</div>
+            <div class="detail">Live via Zoom</div>
+        </div>
+        
         <div class="highlight-box">
             <h2>What You'll Discover:</h2>
             <ul>
@@ -194,11 +232,21 @@
             <p><strong>This isn't about being a "good singer."</strong> It's about using sound and vibration to wake up parts of yourself that have been on autopilot. It's about feeling alive in your own skin.</p>
         </div>
         
-        <div class="signup-section">
-            <h2>Ready to board the spaceship? 🚀</h2>
-            <p>Sign up below to get notified about upcoming sessions and early-bird access.</p>
+        <div class="pricing-section">
+            <h2>Join the Journey</h2>
+            <div class="price">£25</div>
+            <div class="price-detail">One payment • Lifetime access</div>
             
-<script async data-uid="3fc16fc261" src="https://franklinstone.kit.com/3fc16fc261/index.js"></script>
+            <ul class="included-list">
+                <li>3-hour live intensive workshop (Jan 20th)</li>
+                <li>Lifetime access to all course materials</li>
+                <li>Community access & support</li>
+                <li>Workshop recording (available 48hrs after)</li>
+            </ul>
+            
+            <a href="https://buy.stripe.com/3cI9AT1tSa94cyMd5V1B602" class="cta-button">Secure Your Spot →</a>
+            
+            <p class="guarantee">Limited spots available • Full access from the moment you join</p>
         </div>
     </div>
 </body>

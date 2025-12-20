@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎤 Vocal Playground - Sonic Spaceship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vibrant-orange: #ff6b35;
+            --deep-purple: #4a148c;
+            --electric-blue: #00bcd4;
+            --sunshine-yellow: #ffd600;
+            --midnight: #1a0033;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, var(--midnight) 0%, #2d0055 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--sunshine-yellow), var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--electric-blue);
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--electric-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .exercise-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.2) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s;
+        }
+
+        .exercise-card:hover::before {
+            transform: scale(1);
+        }
+
+        .exercise-card:hover {
+            border-color: var(--vibrant-orange);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.4);
+        }
+
+        .exercise-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .exercise-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--sunshine-yellow);
+        }
+
+        .exercise-card p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .try-it-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background: var(--vibrant-orange);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .try-it-btn:hover {
+            background: var(--electric-blue);
+            transform: scale(1.05);
+        }
+
+        /* Hidden character Easter egg */
+        .secret-character {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--sunshine-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            box-shadow: 0 0 30px rgba(255, 214, 0, 0.5);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .secret-character:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .philosophy {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(0, 188, 212, 0.2));
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 2px solid var(--electric-blue);
+        }
+
+        .philosophy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--sunshine-yellow);
+        }
+
+        .philosophy p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--electric-blue);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--electric-blue);
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .secret-character {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎤 Vocal Playground</h1>
+            <p class="subtitle">Where overthinking goes to die and your voice comes alive</p>
+        </header>
+
+        <div class="nav">
+            <button class="nav-btn active">Movement-Based</button>
+            <button class="nav-btn">Character Work</button>
+            <button class="nav-btn">Physical Anchors</button>
+            <button class="nav-btn">Quick Wins</button>
+        </div>
+
+        <div class="exercise-grid">
+            <div class="exercise-card">
+                <span class="exercise-icon">🏃</span>
+                <h3>The Walk & Talk</h3>
+                <p>Walk around your space while humming. Let your body lead, your voice will follow. Movement bypasses the analytical brain.</p>
+                <button class="try-it-btn">Try It Now</button>
+            </div>
+
+            <div class="exercise-card">
+                <span class="exercise-icon">🎭</span>
+                <h3>Character Shift</h3>
+                <p>Pick a character - any character. How would they sing this song? Embody them fully. Your self-consciousness disappears.</p>
+                <button class="try-it-btn">Choose Character</button>
+            </div>
+
+            <div class="exercise-card">
+                <span class="exercise-icon">💃</span>
+                <h3>Dance First, Sing Second</h3>
+                <p>Put on a favorite song. Dance for 30 seconds. Then sing while still moving. Your body knows what to do.</p>
+                <button class="try-it-btn">Start Dancing</button>
+            </div>
+
+            <div class="exercise-card">
+                <span class="exercise-icon">🌊</span>
+                <h3>Breath Waves</h3>
+                <p>Move your arms in flowing waves while breathing. Let the sound ride the movement. Feel, don't think.</p>
+                <button class="try-it-btn">Begin Flow</button>
+            </div>
+
+            <div class="exercise-card">
+                <span class="exercise-icon">🎪</span>
+                <h3>Silly Voice Permission</h3>
+                <p>Make the WORST singing voice you can imagine. Get ridiculous. Now make it 10% better. Keep going. Watch what happens.</p>
+                <button class="try-it-btn">Get Silly</button>
+            </div>
+
+            <div class="exercise-card">
+                <span class="exercise-icon">⚡</span>
+                <h3>The 5-Second Rule</h3>
+                <p>Count 5-4-3-2-1 and START singing. No time to overthink. Just launch. Your body will catch you.</p>
+                <button class="try-it-btn">Launch Now</button>
+            </div>
+        </div>
+
+        <div class="philosophy">
+            <h2>The Philosophy</h2>
+            <p>Traditional singing instruction is overcomplicated. We're taught to think about breath support, resonance, vowel shapes, placement - a million technical details that paralyze us.</p>
+            <p>But here's the secret: <strong>your body already knows how to sing.</strong></p>
+            <p>Research shows there are specialized neurons that respond ONLY to singing - not speaking, not humming, just singing. These neural pathways remain intact even when trauma or overthinking has silenced your voice.</p>
+            <p>The Sonic Spaceship method works by:</p>
+            <ul style="margin-left: 2rem; line-height: 2;">
+                <li>✨ Using movement to bypass analytical thinking</li>
+                <li>🎭 Employing character embodiment to dissolve self-consciousness</li>
+                <li>🎯 Creating physical anchors your body can remember</li>
+                <li>🚀 Building confidence through play, not perfection</li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Mission Control</a>
+    </div>
+
+    <!-- Secret clickable character -->
+    <div class="secret-character" onclick="window.location.href='secret-jester.html'" title="Click me for a surprise!">
+        🤡
+    </div>
+
+    <script>
+        // Animate exercise cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = `slideUp 0.6s ease-out forwards`;
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.exercise-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+
+        // Add slideUp animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

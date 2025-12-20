@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Journal · Sonic Spaceship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cosmic-dark: #0a0e27;
+            --nebula-purple: #6366f1;
+            --star-gold: #fbbf24;
+            --moon-silver: #e0e7ff;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+            color: var(--moon-silver);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--star-gold), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro {
+            font-size: 1.2em;
+            font-style: italic;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .journal-entries {
+            margin-top: 3rem;
+        }
+
+        .entry {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .entry:hover {
+            border-color: var(--nebula-purple);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .entry-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5em;
+            color: var(--star-gold);
+        }
+
+        .entry-date {
+            opacity: 0.6;
+            font-size: 0.9em;
+        }
+
+        .audio-player {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .play-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--nebula-purple);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            margin: 0 auto 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: var(--star-gold);
+            transform: scale(1.1);
+        }
+
+        .waveform {
+            height: 60px;
+            background: linear-gradient(90deg, 
+                rgba(99, 102, 241, 0.3) 0%, 
+                rgba(99, 102, 241, 0.6) 50%, 
+                rgba(99, 102, 241, 0.3) 100%);
+            border-radius: 5px;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waveform-progress {
+            height: 100%;
+            background: var(--star-gold);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .transcript {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.3);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85em;
+            border: 1px solid var(--nebula-purple);
+        }
+
+        .placeholder {
+            text-align: center;
+            padding: 4rem 2rem;
+            opacity: 0.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .entry-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎙️ Voice Journal</h1>
+            <p class="intro">
+                Audio reflections on teaching moments, client breakthroughs, 
+                and the ongoing journey of voice reconnection.
+            </p>
+        </header>
+
+        <div class="journal-entries">
+            <!-- Example Entry 1 -->
+            <div class="entry">
+                <div class="entry-header">
+                    <h2 class="entry-title">The Pirate Captain Breakthrough</h2>
+                    <span class="entry-date">📅 December 15, 2024</span>
+                </div>
+                
+                <div class="audio-player">
+                    <button class="play-button" onclick="alert('Audio player coming soon!')">▶️</button>
+                    <div class="waveform">
+                        <div class="waveform-progress"></div>
+                    </div>
+                    <div style="text-align: center; opacity: 0.6; font-size: 0.9em;">3:24</div>
+                </div>
+
+                <div class="transcript">
+                    <p><em>Transcript:</em></p>
+                    <p>"Today something magical happened. My client who couldn't sing a note suddenly 
+                    became a pirate captain commanding her ship. And her voice? Powerful. Clear. Free. 
+                    This is why I do this work - watching someone remember they had permission to play, 
+                    to embody, to just BE with sound instead of trying to be perfect..."</p>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">breakthrough</span>
+                    <span class="tag">character work</span>
+                    <span class="tag">embodiment</span>
+                </div>
+            </div>
+
+            <!-- Example Entry 2 -->
+            <div class="entry">
+                <div class="entry-header">
+                    <h2 class="entry-title">Why Scales Don't Work</h2>
+                    <span class="entry-date">📅 December 10, 2024</span>
+                </div>
+                
+                <div class="audio-player">
+                    <button class="play-button" onclick="alert('Audio player coming soon!')">▶️</button>
+                    <div class="waveform">
+                        <div class="waveform-progress"></div>
+                    </div>
+                    <div style="text-align: center; opacity: 0.6; font-size: 0.9em;">5:12</div>
+                </div>
+
+                <div class="transcript">
+                    <p><em>Transcript:</em></p>
+                    <p>"Traditional vocal training starts with scales, technique, 'proper' form. 
+                    But here's what I've discovered: when someone's disconnected from their voice, 
+                    adding MORE analysis just makes it worse. The analytical brain takes over. 
+                    The body freezes. That's why we start with movement, with play, with characters..."</p>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">methodology</span>
+                    <span class="tag">neuroscience</span>
+                    <span class="tag">teaching philosophy</span>
+                </div>
+            </div>
+
+            <!-- Example Entry 3 -->
+            <div class="entry">
+                <div class="entry-header">
+                    <h2 class="entry-title">My Own Voice Journey</h2>
+                    <span class="entry-date">📅 December 5, 2024</span>
+                </div>
+                
+                <div class="audio-player">
+                    <button class="play-button" onclick="alert('Audio player coming soon!')">▶️</button>
+                    <div class="waveform">
+                        <div class="waveform-progress"></div>
+                    </div>
+                    <div style="text-align: center; opacity: 0.6; font-size: 0.9em;">4:45</div>
+                </div>
+
+                <div class="transcript">
+                    <p><em>Transcript:</em></p>
+                    <p>"I stopped singing for years. Completely. It wasn't a conscious choice - life just... 
+                    happened. Then one day, my favorite song came on and my body remembered. Not my brain. 
+                    My BODY. That's when I understood: voice lives in the body, not the mind. And that changed 
+                    everything about how I teach..."</p>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">personal story</span>
+                    <span class="tag">rediscovery</span>
+                    <span class="tag">body wisdom</span>
+                </div>
+            </div>
+
+            <!-- Placeholder for more content -->
+            <div class="placeholder">
+                <p style="font-size: 1.3em; margin-bottom: 1rem;">🎙️ More reflections coming...</p>
+                <p>New audio journals added regularly as insights emerge from teaching and creating.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Back to Mission Control</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Character Gallery - Sonic Spaceship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cinzel:wght@400;600;900&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --velvet-red: #8b0000;
+            --gold: #ffd700;
+            --deep-purple: #4a0e4e;
+            --cream: #fff8dc;
+            --shadow: #1a1a2e;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(74, 14, 78, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 100%);
+            color: var(--cream);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .theater-curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: 
+                repeating-linear-gradient(90deg, 
+                    var(--velvet-red) 0px, 
+                    var(--velvet-red) 50px, 
+                    #6b0000 50px, 
+                    #6b0000 100px
+                );
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            padding-top: 150px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 
+                3px 3px 0 var(--velvet-red),
+                6px 6px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--cream);
+            opacity: 0.9;
+        }
+
+        .stage-intro {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .character-card {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(74, 14, 78, 0.3));
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: top 0.7s;
+        }
+
+        .character-card:hover::before {
+            top: 100%;
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(255, 215, 0, 0.3),
+                0 0 0 6px rgba(255, 215, 0, 0.2);
+            border-color: var(--cream);
+        }
+
+        .character-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .character-card:nth-child(2) .character-icon { animation-delay: 0.5s; }
+        .character-card:nth-child(3) .character-icon { animation-delay: 1s; }
+        .character-card:nth-child(4) .character-icon { animation-delay: 1.5s; }
+
+        .character-card h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .character-card .archetype {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--cream);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .character-card p {
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .unlock-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--gold);
+            color: var(--shadow);
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+        }
+
+        .unlock-btn:hover {
+            background: var(--cream);
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Hidden character - appears after clicking 3 characters */
+        .hidden-character {
+            display: none;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 255, 255, 0.1));
+            border: 3px dashed var(--gold);
+            position: relative;
+        }
+
+        .hidden-character.revealed {
+            display: block;
+            animation: revealMystery 1s ease-out;
+        }
+
+        @keyframes revealMystery {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotateY(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .mystery-hint {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px dashed var(--gold);
+            border-radius: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 3px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            border-radius: 40px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .back-link:hover {
+            background: var(--gold);
+            color: var(--shadow);
+            transform: translateX(-10px);
+        }
+
+        @media (max-width: 768px) {
+            .theater-curtain {
+                height: 100px;
+            }
+            .container {
+                padding-top: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theater-curtain"></div>
+
+    <div class="container">
+        <header>
+            <h1>🎭 THE CHARACTER GALLERY 🎭</h1>
+            <p class="subtitle">Personas That Unlock Your Voice</p>
+        </header>
+
+        <div class="stage-intro">
+            <p>In the Sonic Spaceship methodology, characters are portals to your authentic voice. When you embody a character, your self-consciousness dissolves. You're not YOU singing - you're THEM.</p>
+            <p style="margin-top: 1rem;">Each character bypasses different mental blocks. Try them all. Find your favorites. Mix and match. There are no rules in the spaceship.</p>
+        </div>
+
+        <div class="characters-grid">
+            <div class="character-card" onclick="unlockCharacter(this)">
+                <span class="character-icon">👑</span>
+                <h2>The Monarch</h2>
+                <p class="archetype">Commanding Presence</p>
+                <p>Regal, powerful, unapologetic. This character owns the room. Perfect for building confidence and projection. Stand tall. Speak with authority. Your voice is law.</p>
+                <button class="unlock-btn">Embody</button>
+            </div>
+
+            <div class="character-card" onclick="unlockCharacter(this)">
+                <span class="character-icon">🦊</span>
+                <h2>The Trickster</h2>
+                <p class="archetype">Playful Mischief</p>
+                <p>Sly, clever, always surprising. This character loves to play with sound. Ideal for breaking through perfectionism. Nothing is serious. Everything is a game.</p>
+                <button class="unlock-btn">Embody</button>
+            </div>
+
+            <div class="character-card" onclick="unlockCharacter(this)">
+                <span class="character-icon">🌙</span>
+                <h2>The Mystic</h2>
+                <p class="archetype">Ethereal Wisdom</p>
+                <p>Otherworldly, mysterious, connected to something greater. This character flows like water. Perfect for exploring your softer, more vulnerable tones.</p>
+                <button class="unlock-btn">Embody</button>
+            </div>
+
+            <div class="character-card" onclick="unlockCharacter(this)">
+                <span class="character-icon">⚔️</span>
+                <h2>The Warrior</h2>
+                <p class="archetype">Fierce Determination</p>
+                <p>Strong, grounded, unstoppable. This character faces fear head-on. Excellent for power and breath support. You are unshakeable. Your voice is your weapon.</p>
+                <button class="unlock-btn">Embody</button>
+            </div>
+
+            <!-- Hidden character that appears after interacting with 3 characters -->
+            <div class="character-card hidden-character" id="hiddenCharacter">
+                <span class="character-icon">✨</span>
+                <h2>The Shapeshifter</h2>
+                <p class="archetype">Master of All Forms</p>
+                <p>You've discovered the secret character! The Shapeshifter flows between ALL personas. This is you, fully expressed. All characters. No character. Pure voice.</p>
+                <button class="unlock-btn" onclick="window.location.href='secret-shapeshifter.html'">Enter the Transformation</button>
+            </div>
+        </div>
+
+        <div class="mystery-hint" id="mysteryHint">
+            💫 Secret Hint: Click on 3 different characters to unlock a hidden persona...
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Return to Mission Control</a>
+        </div>
+    </div>
+
+    <script>
+        let clickedCharacters = new Set();
+
+        function unlockCharacter(card) {
+            clickedCharacters.add(card);
+            
+            // Visual feedback
+            card.style.borderColor = 'var(--cream)';
+            card.style.background = 'linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 255, 255, 0.1))';
+            
+            // Check if 3 different characters have been clicked
+            if (clickedCharacters.size >= 3) {
+                const hidden = document.getElementById('hiddenCharacter');
+                const hint = document.getElementById('mysteryHint');
+                
+                setTimeout(() => {
+                    hidden.classList.add('revealed');
+                    hint.style.display = 'none';
+                    
+                    // Scroll to the hidden character
+                    setTimeout(() => {
+                        hidden.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 500);
+                }, 500);
+            }
+        }
+
+        // Add sparkle effect on hover
+        document.querySelectorAll('.character-card').forEach(card => {
+            card.addEventListener('mouseenter', function(e) {
+                const sparkle = document.createElement('div');
+                sparkle.textContent = '✨';
+                sparkle.style.position = 'absolute';
+                sparkle.style.fontSize = '2rem';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                sparkle.style.pointerEvents = 'none';
+                this.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            });
+        });
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                from {
+                    opacity: 1;
+                    transform: scale(0) rotate(0deg);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(2) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

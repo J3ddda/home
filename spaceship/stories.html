@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📹 Daily Stories - Sonic Spaceship</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coral: #ff6b6b;
+            --teal: #4ecdc4;
+            --navy: #1a535c;
+            --cream: #ffe66d;
+            --deep-blue: #0b132b;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--deep-blue);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--coral), var(--teal), var(--cream));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .journey-intro {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-left: 5px solid var(--coral);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--teal);
+            box-shadow: 0 20px 40px rgba(78, 205, 196, 0.3);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--navy), var(--teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .play-btn {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--navy);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+
+        .video-info .date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.8rem;
+        }
+
+        .video-info p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .series-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--coral);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.8rem;
+        }
+
+        /* Time Traveler Easter Egg */
+        .time-traveler {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--cream), var(--coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            animation: timeWarp 3s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(255, 230, 109, 0.6);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .time-traveler:hover {
+            transform: scale(1.3) rotate(360deg);
+            box-shadow: 0 0 60px rgba(255, 230, 109, 1);
+        }
+
+        @keyframes timeWarp {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                transform: scale(1.1) rotate(180deg);
+                filter: hue-rotate(180deg);
+            }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--teal);
+            color: var(--teal);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--teal);
+            color: var(--deep-blue);
+            transform: translateX(-10px);
+        }
+
+        @media (max-width: 768px) {
+            .time-traveler {
+                width: 55px;
+                height: 55px;
+                font-size: 2rem;
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📹 Daily Stories</h1>
+            <p class="tagline">The journey from silence to song, one video at a time</p>
+        </header>
+
+        <div class="journey-intro">
+            <p><strong>This is the story of rediscovering voice.</strong></p>
+            <p style="margin-top: 1rem;">Every day leading up to the Sonic Spaceship launch, I'm documenting the journey. Cooking. Walking. Doing everyday tasks. And telling the story of how movement and characters brought singing back into my life after years of silence.</p>
+            <p style="margin-top: 1rem;">These aren't polished videos. They're real. Raw. Sometimes silly. Always honest. Just like the process of finding your voice again.</p>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    🥒
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Quick Pickling While Humming</h3>
+                    <p class="date">Day 1 • December 2024</p>
+                    <p>Making quick pickles and talking about why multitasking helps bypass the inner critic. Your hands are busy, your mind relaxes, your voice flows.</p>
+                    <span class="series-tag">Kitchen Chronicles</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    🚶
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>The Walk That Changed Everything</h3>
+                    <p class="date">Day 3 • December 2024</p>
+                    <p>The story of when a favorite song played and my body remembered how to sing. Why movement is the key to unlocking voice.</p>
+                    <span class="series-tag">Origin Story</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    🎭
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Meeting Your First Character</h3>
+                    <p class="date">Day 5 • December 2024</p>
+                    <p>Chopping vegetables while explaining character embodiment. When you're "someone else," self-consciousness disappears. It's magic.</p>
+                    <span class="series-tag">Teaching Moments</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    🧠
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>The Neuroscience of Singing</h3>
+                    <p class="date">Day 7 • December 2024</p>
+                    <p>Making breakfast and explaining the specialized neurons that respond ONLY to singing. Your brain is literally wired for this.</p>
+                    <span class="series-tag">Science Deep Dive</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    ✨
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Client Breakthrough Moment</h3>
+                    <p class="date">Day 10 • December 2024</p>
+                    <p>Preserving cabbage while sharing about a client who hadn't sung in 15 years. One character shift. One breakthrough. Tears of joy.</p>
+                    <span class="series-tag">Victories</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    🎪
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Permission to Be Ridiculous</h3>
+                    <p class="date">Day 12 • December 2024</p>
+                    <p>Tidying up while talking about why silly voices are the fastest path to authentic expression. Play first. Perfect never.</p>
+                    <span class="series-tag">Philosophy</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    💪
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Body Knows Before Mind</h3>
+                    <p class="date">Day 15 • December 2024</p>
+                    <p>Exercise routine while explaining muscle memory and why your body remembers how to sing even when your brain doesn't.</p>
+                    <span class="series-tag">Movement Science</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    🚀
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>5 Days Until Launch</h3>
+                    <p class="date">Day 30 • January 2025</p>
+                    <p>Morning coffee and reflections on this journey. What I've learned. What's coming. Why this matters. The Spaceship is almost ready.</p>
+                    <span class="series-tag">Countdown</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Back to Mission Control</a>
+        </div>
+    </div>
+
+    <!-- Time Traveler Easter Egg -->
+    <div class="time-traveler" onclick="window.location.href='secret-timeline.html'" title="Where does time go?">
+        ⏰
+    </div>
+
+    <script>
+        // Stagger animation for video cards
+        document.querySelectorAll('.video-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s forwards`;
+        });
+
+        // Add fadeInUp animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

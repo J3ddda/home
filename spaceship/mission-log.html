@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Log · Sonic Spaceship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Crimson+Pro:wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cosmic-dark: #0a0e27;
+            --nebula-purple: #6366f1;
+            --star-gold: #fbbf24;
+            --moon-silver: #e0e7ff;
+            --success-green: #10b981;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--cosmic-dark);
+            color: var(--moon-silver);
+            min-height: 100vh;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--star-gold), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .launch-status {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid var(--success-green);
+            border-radius: 25px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--nebula-purple), var(--star-gold));
+        }
+
+        .log-entry {
+            position: relative;
+            margin-bottom: 3rem;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .log-entry:hover {
+            border-color: var(--nebula-purple);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+            transform: translateX(5px);
+        }
+
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            background: var(--nebula-purple);
+            border: 3px solid var(--cosmic-dark);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--nebula-purple);
+        }
+
+        .log-date {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--star-gold);
+            font-size: 0.95em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .log-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 1rem;
+            color: var(--moon-silver);
+        }
+
+        .log-content {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .log-content p {
+            margin-bottom: 1rem;
+        }
+
+        .log-meta {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        .countdown-widget {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid var(--nebula-purple);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .countdown-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--star-gold);
+            margin: 1rem 0;
+        }
+
+        .secret-message {
+            margin-top: 6rem;
+            padding: 3rem;
+            text-align: center;
+            opacity: 0.3;
+            font-size: 0.9em;
+            font-style: italic;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .secret-message:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline::before {
+                left: 0.5rem;
+            }
+
+            .log-entry::before {
+                left: -2.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>📔 Mission Log</h1>
+        <p class="hero-subtitle">The journey to Sonic Spaceship launch</p>
+        <div class="launch-status">
+            🚀 T-minus <span id="daysLeft">--</span> days to launch
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="countdown-widget">
+            <h3 style="font-family: 'Space Grotesk', sans-serif; opacity: 0.8;">Days Until Workshop</h3>
+            <div class="countdown-number" id="countdown">--</div>
+            <p style="opacity: 0.7;">January 20th, 2025 · The Sonic Spaceship launches</p>
+        </div>
+
+        <div class="timeline">
+            <!-- Log Entry 1 -->
+            <div class="log-entry">
+                <div class="log-date">📅 December 20, 2024 · Day 31</div>
+                <h2 class="log-title">The Site Goes Live</h2>
+                <div class="log-content">
+                    <p>Today the Sonic Spaceship website launches. Not perfect. Not finished. But ALIVE.</p>
+                    <p>This is the philosophy in action: start before you're ready. Show the process. 
+                    Let people see the journey, not just the destination. Every day from now until 
+                    launch on January 20th, this site will grow, evolve, breathe.</p>
+                    <p>Easter eggs hidden. Secrets waiting to be discovered. Just like finding your voice - 
+                    it's about exploration, not perfection.</p>
+                </div>
+                <div class="log-meta">
+                    <span>✍️ Frankie Stone</span>
+                    <span>🏷️ Launch</span>
+                    <span>⏱️ 3 min read</span>
+                </div>
+            </div>
+
+            <!-- Log Entry 2 -->
+            <div class="log-entry">
+                <div class="log-date">📅 December 18, 2024 · Day 33</div>
+                <h2 class="log-title">Why Movement Matters</h2>
+                <div class="log-content">
+                    <p>Had an insight while cooking today (where all the best ideas come from, apparently). 
+                    I was pickling radishes and realized: transformation takes time. You can't rush fermentation. 
+                    You create the conditions and trust the process.</p>
+                    <p>Same with voice. You can't force someone to "sing correctly." But you CAN create conditions 
+                    where their natural voice emerges. Movement. Play. Character embodiment. These bypass the 
+                    analytical brain and let the body remember what it already knows.</p>
+                    <p>The pirate doesn't think about breath support. The pirate commands the ship.</p>
+                </div>
+                <div class="log-meta">
+                    <span>✍️ Frankie Stone</span>
+                    <span>🏷️ Philosophy, Movement</span>
+                    <span>⏱️ 2 min read</span>
+                </div>
+            </div>
+
+            <!-- Log Entry 3 -->
+            <div class="log-entry">
+                <div class="log-date">📅 December 15, 2024 · Day 36</div>
+                <h2 class="log-title">The Research That Changed Everything</h2>
+                <div class="log-content">
+                    <p>Discovered something fascinating: specialized neurons that respond ONLY to singing. 
+                    Not speech. Not music. Just singing. And here's the kicker - in people who've experienced 
+                    trauma or disconnection from their voice, these pathways are still there. Dormant. Waiting.</p>
+                    <p>This is why character work and movement-based approaches work so well. We're not teaching 
+                    new skills. We're reactivating preserved neural pathways through safe, playful exploration.</p>
+                    <p>Science validates what the body already knows.</p>
+                </div>
+                <div class="log-meta">
+                    <span>✍️ Frankie Stone</span>
+                    <span>🏷️ Neuroscience, Research</span>
+                    <span>⏱️ 4 min read</span>
+                </div>
+            </div>
+
+            <!-- Log Entry 4 -->
+            <div class="log-entry">
+                <div class="log-date">📅 December 10, 2024 · Day 41</div>
+                <h2 class="log-title">Building in Public</h2>
+                <div class="log-content">
+                    <p>35 days of daily videos leading to workshop launch. Am I terrified? Yes. 
+                    Am I doing it anyway? Also yes.</p>
+                    <p>ADHD brain loves the structure: one video per day, any task, talk while doing it. 
+                    Cook breakfast? Content. Pickle vegetables? Content. Walk to work? Content. 
+                    The story is in the living, not the polishing.</p>
+                    <p>This is the anti-perfectionism approach to both content creation AND voice work. 
+                    Start messy. Stay authentic. Trust the process.</p>
+                </div>
+                <div class="log-meta">
+                    <span>✍️ Frankie Stone</span>
+                    <span>🏷️ Content Strategy, ADHD</span>
+                    <span>⏱️ 2 min read</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secret at the bottom -->
+        <div class="secret-message" onclick="window.location.href='secret-infinity.html'">
+            "Those who scroll to the end find what others miss..." 
+            <br>∞<br>
+            <span style="font-size: 0.8em; opacity: 0.5;">Click the infinity to continue...</span>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Back to Mission Control</a>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const launchDate = new Date('2025-01-20T00:00:00');
+            const now = new Date();
+            const diff = launchDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').textContent = '0';
+                document.getElementById('daysLeft').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('countdown').textContent = days;
+            document.getElementById('daysLeft').textContent = days;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    </script>
+</body>
+</html>

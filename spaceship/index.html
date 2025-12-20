@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Sonic Spaceship - Voice Reconnection Mission Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cosmic-dark: #0a0e27;
+            --nebula-purple: #6366f1;
+            --star-gold: #fbbf24;
+            --moon-silver: #e0e7ff;
+            --void-black: #050814;
+            --aurora-pink: #ec4899;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--cosmic-dark);
+            color: var(--moon-silver);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated starfield background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                var(--cosmic-dark);
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--star-gold), var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--moon-silver);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .mission-status {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid var(--nebula-purple);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.5); }
+        }
+
+        .countdown {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--star-gold);
+            margin: 1rem 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--nebula-purple);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--star-gold);
+        }
+
+        .card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .secret-hint {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: 12px;
+            border: 1px dashed var(--aurora-pink);
+            font-style: italic;
+            opacity: 0.7;
+            cursor: help;
+        }
+
+        .secret-hint:hover {
+            opacity: 1;
+            background: rgba(236, 72, 153, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+        }
+
+        /* Easter egg - click the moon */
+        .moon {
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            z-index: 100;
+        }
+
+        .moon:hover {
+            transform: scale(1.2) rotate(15deg);
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .moon {
+                width: 50px;
+                height: 50px;
+                top: 5%;
+                right: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="starfield">
+        <div class="stars" id="stars"></div>
+    </div>
+
+    <!-- Secret clickable moon -->
+    <div class="moon" onclick="window.location.href='secret-moon.html'" title="🌙 Click me..."></div>
+
+    <div class="container">
+        <header>
+            <h1>🚀 SONIC SPACESHIP</h1>
+            <p class="tagline">Voice Reconnection Mission Control</p>
+        </header>
+
+        <div class="mission-status">
+            <h3 style="font-family: 'Space Grotesk', sans-serif; color: var(--nebula-purple); margin-bottom: 0.5rem;">LAUNCH SEQUENCE INITIATED</h3>
+            <div class="countdown" id="countdown">CALCULATING...</div>
+            <p>Workshop Launch: January 20th, 2025</p>
+        </div>
+
+        <div class="grid">
+            <a href="vocal-playground.html" class="card">
+                <span class="card-icon">🎤</span>
+                <h2>Vocal Playground</h2>
+                <p>Interactive exercises and character embodiments. Try the techniques that bypass overthinking.</p>
+            </a>
+
+            <a href="character-gallery.html" class="card">
+                <span class="card-icon">🎭</span>
+                <h2>Character Gallery</h2>
+                <p>Meet the voices. Explore the embodiments. Discover your sonic personas.</p>
+            </a>
+
+            <a href="stories.html" class="card">
+                <span class="card-icon">📹</span>
+                <h2>Daily Stories</h2>
+                <p>Journey videos. Behind-the-scenes. The story of rediscovering voice through movement.</p>
+            </a>
+
+            <a href="voice-journal.html" class="card">
+                <span class="card-icon">🎙️</span>
+                <h2>Voice Journal</h2>
+                <p>Audio reflections on teaching moments, client breakthroughs, and the science of singing.</p>
+            </a>
+
+            <a href="timer.html" class="card">
+                <span class="card-icon">⏱️</span>
+                <h2>Creator Timer</h2>
+                <p>ADHD-friendly video timer. Multitask while creating content. Your productivity companion.</p>
+            </a>
+
+            <a href="mission-log.html" class="card">
+                <span class="card-icon">📔</span>
+                <h2>Mission Log</h2>
+                <p>Updates, insights, and the evolving journey. Watch this space grow in real-time.</p>
+            </a>
+        </div>
+
+        <div class="secret-hint">
+            💫 Psst... This spaceship has secrets. Look for hidden constellations, clickable stars, and mysterious transmissions. Not everything is as it seems... 🌙
+        </div>
+
+        <footer>
+            <p>Built with curiosity by Frankie Stone | Streaming live from thefrankiestone.com</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Smile and the world will smile back ✨</p>
+        </footer>
+    </div>
+
+    <script>
+        // Generate random stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const launchDate = new Date('2025-01-20T00:00:00');
+            const now = new Date();
+            const diff = launchDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').textContent = 'LAUNCHED! 🚀';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('countdown').textContent = `${days}d ${hours}h ${minutes}m`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                window.location.href = 'secret-vault.html';
+            }
+        });
+    </script>
+</body>
+</html>

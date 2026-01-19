@@ -10,243 +10,693 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            background: #000;
+            color: #00cc00;
+            font-family: 'Courier New', monospace;
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
-        
+
+        /* Starfield background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent),
+                radial-gradient(1px 1px at 33% 80%, white, transparent),
+                radial-gradient(1px 1px at 70% 40%, white, transparent);
+            background-size: 200% 200%;
+            animation: sparkle 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
         .container {
-            max-width: 700px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 50px 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
         }
-        
+
+        /* Back button */
         .back-link {
-            color: #7e22ce;
+            color: #00cc00;
             text-decoration: none;
-            font-size: 0.9em;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #333;
-            text-align: center;
-        }
-        
-        .emoji {
-            font-size: 3em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .subtitle {
-            text-align: center;
-            font-size: 1.2em;
-            color: #666;
             margin-bottom: 30px;
+            display: inline-block;
+            border: 1px solid #00aa00;
+            padding: 8px 15px;
+            background: rgba(0, 200, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 200, 0, 0.15);
+            box-shadow: 0 0 5px rgba(0, 200, 0, 0.3);
+        }
+
+        /* Terminal window */
+        .terminal {
+            border: 2px solid #00aa00;
+            background: rgba(0, 20, 0, 0.85);
+            box-shadow: 
+                0 0 10px rgba(0, 200, 0, 0.2),
+                inset 0 0 30px rgba(0, 200, 0, 0.03);
+            margin-top: 20px;
+        }
+
+        .terminal-header {
+            background: linear-gradient(to bottom, #002200, #001100);
+            border-bottom: 1px solid #00aa00;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-title {
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #00aa00;
+            background: rgba(0, 200, 0, 0.15);
+        }
+
+        .terminal-body {
+            padding: 30px;
             line-height: 1.6;
         }
-        
-        .description {
-            color: #444;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            font-size: 1.05em;
+
+        /* Rocket animation */
+        .rocket {
+            font-size: 40px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 3px #00aa00);
         }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-45deg); }
+            50% { transform: translateY(-10px) rotate(-45deg); }
+        }
+
+        h1 {
+            font-size: 48px;
+            letter-spacing: 5px;
+            margin: 20px 0;
+            text-shadow: 0 0 5px rgba(0, 200, 0, 0.4);
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            color: #dcdcdc;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        /* Status display */
+        .status-display {
+            background: #000;
+            border: 2px solid #00aa00;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 14px;
+        }
+
+        .status-line {
+            margin: 8px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-label {
+            color: #00aa00;
+            min-width: 100px;
+        }
+
+        .status-value {
+            color: #00cc00;
+            text-shadow: 0 0 3px rgba(0, 200, 0, 0.3);
+        }
+
+        /* Visual equalizer */
+        .equalizer {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 20px 0;
+            height: 40px;
+            align-items: flex-end;
+        }
+
+        .eq-bar {
+            width: 40px;
+            background: #00aa00;
+            box-shadow: 0 0 5px rgba(0, 200, 0, 0.3);
+            animation: pulse 0.8s ease-in-out infinite;
+        }
+
+        .eq-bar:nth-child(1) { animation-delay: 0s; height: 60%; }
+        .eq-bar:nth-child(2) { animation-delay: 0.1s; height: 80%; }
+        .eq-bar:nth-child(3) { animation-delay: 0.2s; height: 40%; }
+        .eq-bar:nth-child(4) { animation-delay: 0.3s; height: 90%; }
+        .eq-bar:nth-child(5) { animation-delay: 0.4s; height: 50%; }
+        .eq-bar:nth-child(6) { animation-delay: 0.5s; height: 70%; }
+        .eq-bar:nth-child(7) { animation-delay: 0.6s; height: 85%; }
+        .eq-bar:nth-child(8) { animation-delay: 0.7s; height: 65%; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scaleY(0.8); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        .section {
             margin: 30px 0;
         }
-        
-        .highlight-box h2 {
-            font-size: 1.3em;
+
+        .section-title {
+            font-size: 20px;
             margin-bottom: 15px;
+            color: #00aa00;
+            text-shadow: 0 0 4px rgba(0, 200, 0, 0.3);
         }
-        
-        .highlight-box ul {
+
+        .content-box {
+            background: rgba(0, 0, 0, 0.6);
+            border-left: 3px solid #00aa00;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .content-box p {
+            color: #dcdcdc;
+        }
+
+        ul {
             list-style: none;
             padding-left: 0;
         }
-        
-        .highlight-box li {
-            padding: 8px 0;
+
+        li {
+            margin: 10px 0;
             padding-left: 25px;
             position: relative;
+            color: #dcdcdc;
         }
-        
-        .highlight-box li:before {
-            content: "✨";
+
+        li::before {
+            content: '▸';
             position: absolute;
             left: 0;
+            color: #00aa00;
         }
-        
-        .info-box {
-            background: #f8f9ff;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
+
+        .highlight {
+            color: #00cc00;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(0, 200, 0, 0.4);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin: 40px 0;
             text-align: center;
         }
-        
-        .info-box h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.2em;
+
+        .price-display {
+            font-size: 36px;
+            color: #00cc00;
+            text-shadow: 0 0 8px rgba(0, 200, 0, 0.4);
+            margin: 20px 0;
+            letter-spacing: 3px;
         }
-        
-        .info-box .date {
-            font-size: 1.3em;
-            color: #667eea;
-            font-weight: 600;
-            margin: 10px 0;
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
         }
-        
-        .info-box .detail {
-            color: #666;
-            margin: 5px 0;
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00aa00;
+            padding: 15px;
+            font-size: 14px;
+            color: #dcdcdc;
         }
-        
-        .pricing-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            border-radius: 15px;
+
+        /* Join button */
+        .join-button {
+            display: inline-block;
+            margin: 30px auto;
+            padding: 15px 40px;
+            background: rgba(0, 200, 0, 0.12);
+            border: 2px solid #00aa00;
+            color: #00cc00;
+            text-decoration: none;
+            font-size: 18px;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 200, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .join-button::before {
+            content: '▶';
+            margin-right: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .join-button::after {
+            content: '0100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111001000000100101001001111010010010100111000100000010011100100111101010111';
+            position: absolute;
+            top: -200%;
+            left: 0;
+            right: 0;
+            height: 400%;
+            font-size: 10px;
+            line-height: 1.2;
+            color: #00aa00;
+            opacity: 0.3;
+            word-wrap: break-word;
+            animation: matrixFall 4s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(50%);
+            }
+        }
+
+        .join-button:hover {
+            background: rgba(0, 200, 0, 0.2);
+            box-shadow: 0 0 30px rgba(0, 200, 0, 0.6);
+            transform: scale(1.05);
+        }
+
+        .join-button:hover::after {
+            animation-duration: 2s;
+            opacity: 0.5;
+        }
+
+        .join-button span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .status-message {
             text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 12px;
             margin-top: 40px;
+            opacity: 0.7;
+            color: #dcdcdc;
         }
-        
-        .pricing-section h2 {
-            font-size: 1.8em;
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+                letter-spacing: 3px;
+            }
+
+            .terminal-body {
+                padding: 20px;
+            }
+
+            .eq-bar {
+                width: 30px;
+            }
+
+            .price-display {
+                font-size: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scanline effect */
+        .terminal-body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Captain Info Panel */
+        .captain-panel {
+            position: fixed;
+            right: -350px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            background: rgba(0, 20, 0, 0.95);
+            border: 2px solid #00aa00;
+            border-right: none;
+            box-shadow: -5px 0 20px rgba(0, 200, 0, 0.3);
+            transition: right 0.4s ease;
+            z-index: 1000;
+        }
+
+        .captain-panel.open {
+            right: 0;
+        }
+
+        .captain-toggle {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 120px;
+            background: rgba(0, 20, 0, 0.95);
+            border: 2px solid #00aa00;
+            border-right: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #00aa00;
+        }
+
+        .captain-toggle:hover {
+            background: rgba(0, 40, 0, 0.95);
+            box-shadow: -3px 0 10px rgba(0, 200, 0, 0.3);
+        }
+
+        .captain-header {
+            background: linear-gradient(to bottom, #002200, #001100);
+            border-bottom: 1px solid #00aa00;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .captain-icon {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #00aa00;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .captain-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .captain-title-block {
+            flex: 1;
+        }
+
+        .captain-rank {
+            font-size: 10px;
+            color: #009900;
+            letter-spacing: 1px;
+        }
+
+        .captain-name {
+            font-size: 16px;
+            color: #00cc00;
+            letter-spacing: 2px;
+            margin-top: 3px;
+        }
+
+        .captain-body {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .captain-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .captain-body::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        .captain-body::-webkit-scrollbar-thumb {
+            background: #00aa00;
+            border: 1px solid #000;
+        }
+
+        .captain-section {
             margin-bottom: 15px;
         }
-        
-        .price {
-            font-size: 3em;
-            font-weight: 700;
-            margin: 20px 0;
+
+        .captain-section-title {
+            color: #00aa00;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #003300;
+            padding-bottom: 5px;
         }
-        
-        .price-detail {
-            font-size: 1.1em;
-            opacity: 0.9;
-            margin-bottom: 30px;
+
+        .captain-section p {
+            margin: 8px 0;
+            color: #dcdcdc;
         }
-        
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #667eea;
-            text-decoration: none;
-            padding: 20px 50px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2em;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+        .text-grey {
+            color: #dcdcdc;
         }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-        
-        .included-list {
-            text-align: left;
-            margin: 30px auto 40px;
-            max-width: 400px;
-        }
-        
-        .included-list li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            font-size: 1.05em;
-        }
-        
-        .included-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.3em;
-        }
-        
-        .guarantee {
-            margin-top: 30px;
-            font-size: 0.95em;
-            opacity: 0.95;
-            font-style: italic;
+
+        /* Mobile adjustments for captain panel */
+        @media (max-width: 768px) {
+            .captain-panel {
+                width: 280px;
+                right: -290px;
+            }
+
+            .captain-toggle {
+                width: 35px;
+                height: 100px;
+                left: -35px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="./" class="back-link">← Back to home</a>
-        
-        <div class="emoji">🚀✨🎵</div>
-        <h1>Sonic Spaceship</h1>
-        <p class="subtitle">A 3-hour journey to reconnect with your body through voice</p>
-        
-        <div class="description">
-            <p>Ever felt disconnected from your body? Like you're living in your head while your body just... exists below?</p>
-            <br>
-            <p>Sonic Spaceship is a place to learn a new skill while building confidence and learning more about your body in the process. No singing experience required – just curiosity and a willingness to explore.</p>
-        </div>
-        
-        <div class="info-box">
-            <h3>📅 Next Session</h3>
-            <div class="date">January 30th, 2026</div>
-            <div class="detail">8:00 PM GMT (UK Time)</div>
-            <div class="detail">Live via Zoom</div>
-        </div>
-        
-        <div class="highlight-box">
-            <h2>What You'll Discover:</h2>
-            <ul>
-                <li>How your voice connects directly to your nervous system</li>
-                <li>Techniques to release tension [and trauma] stored in the body</li>
-                <li>Simple vocal exercises that ground you in physical sensation</li>
-                <li>How to use your voice as a tool for self-regulation and presence</li>
-            </ul>
-        </div>
-        
-        <div class="description">
-            <p><strong>This isn't about being a "good singer."</strong> It's about using sound and vibration to wake up parts of yourself that have been on autopilot. It's about feeling alive in your own skin.</p>
-        </div>
-        
-        <div class="pricing-section">
-            <h2>Join the Journey</h2>
-            <div class="price">£50</div>
-            <div class="price-detail">One payment • Lifetime access</div>
-            
-            <ul class="included-list">
-                <li>3-hour live online-workshop (Jan 20th)</li>
-                <li>Lifetime access to all course materials</li>
-                <li>Community access & support</li>
-                <li>Workshop recording (available 48hrs after)</li>
-            </ul>
-            
-            <a href="https://buy.stripe.com/fZufZhfkI3KG1U81nd1B604" class="cta-button">Secure Your Spot →</a>
-            
-            <p class="guarantee">Limited spots available • Full access from the moment you join</p>
+        <a href="./" class="back-link">← BACK TO HOME</a>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-title">[ALPHA 1]</div>
+                <div class="terminal-controls">
+                    <div class="terminal-btn"></div>
+                    <div class="terminal-btn"></div>
+                    <div class="terminal-btn"></div>
+                </div>
+            </div>
+
+            <div class="terminal-body">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="rocket">🚀</span>
+                </div>
+
+                <h1>SONIC SPACESHIP</h1>
+                <div class="subtitle">Vocal Mission Control</div>
+
+                <div class="equalizer">
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                </div>
+
+                <div class="content-box">
+                    <p style="margin-bottom: 15px;">SYSTEM DIAGNOSTIC_</p>
+                    <p>Ever felt disconnected from your body? Like you're living in your head while your body just... exists below?</p>
+                    <br>
+                    <p>Sonic Spaceship is a place to learn a new skill while building confidence and learning more about your body in the process. <span class="highlight">No singing experience required</span> – just curiosity and a willingness to explore.</p>
+                </div>
+
+                <div class="status-display">
+                    <div class="status-line">
+                        <span class="status-label">WHEN:</span>
+                        <span class="status-value">JANUARY 30TH, 2026</span>
+                    </div>
+                    <div class="status-line">
+                        <span class="status-label">TIME:</span>
+                        <span class="status-value">20:00 GMT (UK TIME)</span>
+                    </div>
+                    <div class="status-line">
+                        <span class="status-label">WHERE:</span>
+                        <span class="status-value">ZOOM (PORTAL 01) </span>
+                    </div>
+                    <div class="status-line">
+                        <span class="status-label">COST:</span>
+                        <span class="status-value">£50</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">MISSION OBJECTIVES:</div>
+                    <ul>
+                        <li>How your voice connects directly to your nervous system</li>
+                        <li>Techniques to release tension [and trauma] stored in the body</li>
+                        <li>Simple vocal exercises that ground you in physical sensation</li>
+                        <li>How to use your voice as a tool for self-regulation and presence</li>
+                    </ul>
+                </div>
+
+                <div class="content-box">
+                    <p><span class="highlight">THIS ISN'T ABOUT BEING A "GOOD SINGER."</span></p>
+                    <br>
+                    <p>It's about using sound and vibration to wake up parts of yourself that have been on autopilot. It's about feeling alive in your own skin.</p>
+                </div>
+
+                <div class="cta-section">
+                    <div class="section-title">BOARDING PASS INCLUDES:</div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">3-hour live online workshop (Jan 30th)</div>
+                        <div class="feature-item">Lifetime access to all course materials</div>
+                        <div class="feature-item">Community access & support</div>
+                        <div class="feature-item">Workshop recording (available 48hrs after)</div>
+                    </div>
+
+                    <div class="price-display">£50</div>
+                    <div class="text-grey" style="font-size: 12px; opacity: 0.8; margin-bottom: 20px;">One payment • Lifetime access</div>
+
+                    <div class="status-message">ON-BOARDING NOW</div>
+                    <div class="status-message" style="animation-delay: 0.3s;">LIMITED SPOTS AVAILABLE</div>
+
+                    <a href="https://buy.stripe.com/fZufZhfkI3KG1U81nd1B604" class="join-button">JOIN NOW</a>
+
+                    <div class="footer-text">Full access from the moment you join</div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Captain Info Panel -->
+    <div class="captain-panel" id="captainPanel">
+        <div class="captain-toggle" onclick="toggleCaptain()">
+            CAPTAIN
+        </div>
+        <div class="captain-header">
+            <div class="captain-icon">
+                <!-- Replace with your 50x50px image -->
+                👨‍🚀
+                <!-- <img src="your-icon.png" alt="Captain"> -->
+            </div>
+            <div class="captain-title-block">
+                <div class="captain-rank">[MISSION COMMANDER]</div>
+                <div class="captain-name">FRANKIE STONE</div>
+            </div>
+        </div>
+        <div class="captain-body">
+            <div class="captain-section">
+                <div class="captain-section-title">MISSION BRIEFING_</div>
+                <p>Your guide on this sonic journey. I've navigated the silence, crashed through judgment, and emerged with a new understanding of voice as embodiment.</p>
+            </div>
+            <div class="captain-section">
+                <div class="captain-section-title">CREDENTIALS_</div>
+                <p>Former X Factor alumni who traded traditional vocal training for something deeper - the connection between sound, body, and authentic expression.</p>
+            </div>
+            <div class="captain-section">
+                <div class="captain-section-title">SPECIALIZATION_</div>
+                <p>Psychoacoustics, embodiment practices, character work, and helping people escape the gravity of judgment around their voice.</p>
+            </div>
+            <div class="captain-section">
+                <div class="captain-section-title">TRANSMISSION_</div>
+                <p>Coming soon...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCaptain() {
+            const panel = document.getElementById('captainPanel');
+            panel.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
+

@@ -114,5 +114,232 @@
             <a href="mailto:frankie@thefrankiestone.com" class="social-link" title="Email">✉️</a>
         </div>
     </div>
+    <script>
+         // Winamp-style popup for Sonic Spaceship
+(function() {
+  const popup = document.createElement('div');
+  popup.innerHTML = `
+    <style>
+      .winamp-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 295px;
+        background: #000 url("url") no-repeat fixed center;
+        border: 2px solid #404040;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        z-index: 9999;
+        box-shadow: 0 0 20px rgba(0,255,0,0.3);
+      }
+      .winamp-titlebar {
+        background: linear-gradient(to bottom, #2a2a2a 0%, #1a1a1a 100%);
+        padding: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #404040;
+        cursor: move;
+      }
+      .winamp-title {
+        color: #00ff00;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 10px;
+      }
+      .winamp-controls {
+        display: flex;
+        gap: 2px;
+      }
+      .winamp-btn {
+        width: 9px;
+        height: 9px;
+        background: #404040;
+        border: 1px solid #606060;
+        cursor: pointer;
+        font-size: 6px;
+        line-height: 7px;
+        text-align: center;
+        color: #00ff00;
+      }
+      .winamp-btn:hover {
+        background: #505050;
+      }
+      .winamp-display {
+        background: #000;
+        padding: 12px;
+        border: 1px solid #404040;
+        margin: 4px;
+      }
+      .winamp-text {
+        color: #00ff00;
+        font-size: 11px;
+        text-align: center;
+        line-height: 1.6;
+        text-shadow: 0 0 5px #00ff00;
+        margin-bottom: 12px;
+      }
+      .winamp-marquee {
+        color: #00ff00;
+        font-size: 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-bottom: 12px;
+        text-shadow: 0 0 3px #00ff00;
+      }
+      .winamp-marquee span {
+        display: inline-block;
+        animation: scroll 10s linear infinite;
+      }
+      @keyframes scroll {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+      .winamp-visualizer {
+        height: 30px;
+        background: #000;
+        border: 1px solid #404040;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-end;
+        gap: 2px;
+        padding: 2px;
+      }
+      .winamp-bar {
+        flex: 1;
+        background: linear-gradient(to top, #00ff00, #00aa00);
+        animation: pulse 0.5s ease-in-out infinite alternate;
+      }
+      .winamp-bar:nth-child(1) { animation-delay: 0s; }
+      .winamp-bar:nth-child(2) { animation-delay: 0.1s; }
+      .winamp-bar:nth-child(3) { animation-delay: 0.2s; }
+      .winamp-bar:nth-child(4) { animation-delay: 0.3s; }
+      .winamp-bar:nth-child(5) { animation-delay: 0.4s; }
+      .winamp-bar:nth-child(6) { animation-delay: 0.3s; }
+      .winamp-bar:nth-child(7) { animation-delay: 0.2s; }
+      .winamp-bar:nth-child(8) { animation-delay: 0.1s; }
+      @keyframes pulse {
+        0% { height: 20%; }
+        100% { height: 90%; }
+      }
+      .winamp-button {
+        background: linear-gradient(to bottom, #404040, #202020);
+        border: 1px solid #606060;
+        color: #00ff00;
+        padding: 6px 16px;
+        cursor: pointer;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 0 0 5px #00ff00;
+        width: 100%;
+      }
+      .winamp-button:hover {
+        background: linear-gradient(to bottom, #505050, #303030);
+        box-shadow: 0 0 10px rgba(0,255,0,0.5);
+      }
+      .winamp-button:active {
+        background: linear-gradient(to bottom, #303030, #505050);
+      }
+      .winamp-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        z-index: 9998;
+      }
+    </style>
+    <div class="winamp-overlay"></div>
+    <div class="winamp-popup">
+      <div class="winamp-titlebar">
+        <span class="winamp-title">🎵 [ALPHA I]</span>
+        <div class="winamp-controls">
+          <div class="winamp-btn">_</div>
+          <div class="winamp-btn">□</div>
+          <div class="winamp-btn close-btn">×</div>
+        </div>
+      </div>
+      <div class="winamp-display">
+        <div class="winamp-marquee">
+          <span>*** SONIC SPACESHIP - RECONNECT WITH YOUR VOICE ***</span>
+        </div>
+        <div class="winamp-visualizer">
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+          <div class="winamp-bar"></div>
+        </div>
+        <div class="winamp-text">
+          WHEN: JANUARY 30TH, 2026<br>
+          WHERE: (PORTAL 01) ZOOM<br> 
+          COST: £50<br>
+          <br>
+          ON-BOARDING NOW.WAV<br>
+          LIMITED SPOTS AVAILABLE<br>
+        </div>
+        <button class="winamp-button">▶ JOIN NOW</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(popup);
+  
+  const overlay = popup.querySelector('.winamp-overlay');
+  const closeBtn = popup.querySelector('.close-btn');
+  const playBtn = popup.querySelector('.winamp-button');
+  const popupEl = popup.querySelector('.winamp-popup');
+  const titlebar = popup.querySelector('.winamp-titlebar');
+  
+  function closePopup() {
+    popup.remove();
+  }
+  
+  closeBtn.onclick = closePopup;
+  overlay.onclick = closePopup;
+  
+  playBtn.onclick = function() {
+    window.location.href = 'https://thefrankiestone.com/sonic-spaceship.html';
+  };
+  
+  // Draggable
+  let isDragging = false;
+  let currentX, currentY, initialX, initialY;
+  
+  titlebar.addEventListener('mousedown', dragStart);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', dragEnd);
+  
+  function dragStart(e) {
+    if (e.target.classList.contains('winamp-btn')) return;
+    initialX = e.clientX - popupEl.offsetLeft;
+    initialY = e.clientY - popupEl.offsetTop;
+    isDragging = true;
+  }
+  
+  function drag(e) {
+    if (isDragging) {
+      e.preventDefault();
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+      popupEl.style.transform = 'none';
+      popupEl.style.left = currentX + 'px';
+      popupEl.style.top = currentY + 'px';
+    }
+  }
+  
+  function dragEnd() {
+    isDragging = false;
+  }
+})();
+    </script>
 </body>
 </html>

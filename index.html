@@ -98,12 +98,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Frankie Stone</h1>
-        <p class="tagline">Smile and the world will smile back</p>
+        <h1>Welcome to my digihome</h1>
+        <p class="tagline">"Smile and the world will smile back"</p>
+
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1902478572&color=%23c5bdb8&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/frankiestone" title="Frankie Stone" target="_blank" style="color: #cccccc; text-decoration: none;">Frankie Stone</a> · <a href="https://soundcloud.com/frankiestone/with-me-demo" title="With Me - DEMO" target="_blank" style="color: #cccccc; text-decoration: none;">With Me - DEMO</a></div>
         
         <div class="links">
             <a href="sonic-spaceship.html" class="link-button">🚀 Join Sonic Spaceship</a>
-            <a href="#" class="link-button secondary">📝 Blog (Coming Soon)</a>
             <a href="/spaceship/" class="link-button">🚀 Explore the Journey (funzone)</a>
         </div>
         
@@ -114,183 +115,8 @@
             <a href="mailto:frankie@thefrankiestone.com" class="social-link" title="Email">✉️</a>
         </div>
     </div>
-    <script>
-         // Winamp-style popup for Sonic Spaceship
-(function() {
-  const popup = document.createElement('div');
-  popup.innerHTML = `
-    <style>
-      .winamp-popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 295px;
-        background: #000 url("url") no-repeat fixed center;
-        border: 2px solid #404040;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        z-index: 9999;
-        box-shadow: 0 0 20px rgba(0,255,0,0.3);
-      }
-      .winamp-titlebar {
-        background: linear-gradient(to bottom, #2a2a2a 0%, #1a1a1a 100%);
-        padding: 3px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #404040;
-        cursor: move;
-      }
-      .winamp-title {
-        color: #00ff00;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 10px;
-      }
-      .winamp-controls {
-        display: flex;
-        gap: 2px;
-      }
-      .winamp-btn {
-        width: 9px;
-        height: 9px;
-        background: #404040;
-        border: 1px solid #606060;
-        cursor: pointer;
-        font-size: 6px;
-        line-height: 7px;
-        text-align: center;
-        color: #00ff00;
-      }
-      .winamp-btn:hover {
-        background: #505050;
-      }
-      .winamp-display {
-        background: #000;
-        padding: 12px;
-        border: 1px solid #404040;
-        margin: 4px;
-      }
-      .winamp-text {
-        color: #00ff00;
-        font-size: 11px;
-        text-align: center;
-        line-height: 1.6;
-        text-shadow: 0 0 5px #00ff00;
-        margin-bottom: 12px;
-      }
-      .winamp-marquee {
-        color: #00ff00;
-        font-size: 10px;
-        overflow: hidden;
-        white-space: nowrap;
-        margin-bottom: 12px;
-        text-shadow: 0 0 3px #00ff00;
-      }
-      .winamp-marquee span {
-        display: inline-block;
-        animation: scroll 10s linear infinite;
-      }
-      @keyframes scroll {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-      }
-      .winamp-visualizer {
-        height: 30px;
-        background: #000;
-        border: 1px solid #404040;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: flex-end;
-        gap: 2px;
-        padding: 2px;
-      }
-      .winamp-bar {
-        flex: 1;
-        background: linear-gradient(to top, #00ff00, #00aa00);
-        animation: pulse 0.5s ease-in-out infinite alternate;
-      }
-      .winamp-bar:nth-child(1) { animation-delay: 0s; }
-      .winamp-bar:nth-child(2) { animation-delay: 0.1s; }
-      .winamp-bar:nth-child(3) { animation-delay: 0.2s; }
-      .winamp-bar:nth-child(4) { animation-delay: 0.3s; }
-      .winamp-bar:nth-child(5) { animation-delay: 0.4s; }
-      .winamp-bar:nth-child(6) { animation-delay: 0.3s; }
-      .winamp-bar:nth-child(7) { animation-delay: 0.2s; }
-      .winamp-bar:nth-child(8) { animation-delay: 0.1s; }
-      @keyframes pulse {
-        0% { height: 20%; }
-        100% { height: 90%; }
-      }
-      .winamp-button {
-        background: linear-gradient(to bottom, #404040, #202020);
-        border: 1px solid #606060;
-        color: #00ff00;
-        padding: 6px 16px;
-        cursor: pointer;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        text-shadow: 0 0 5px #00ff00;
-        width: 100%;
-      }
-      .winamp-button:hover {
-        background: linear-gradient(to bottom, #505050, #303030);
-        box-shadow: 0 0 10px rgba(0,255,0,0.5);
-      }
-      .winamp-button:active {
-        background: linear-gradient(to bottom, #303030, #505050);
-      }
-      .winamp-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        z-index: 9998;
-      }
-    </style>
-    <div class="winamp-overlay"></div>
-    <div class="winamp-popup">
-      <div class="winamp-titlebar">
-        <span class="winamp-title">🎵 [ALPHA I]</span>
-        <div class="winamp-controls">
-          <div class="winamp-btn">_</div>
-          <div class="winamp-btn">□</div>
-          <div class="winamp-btn close-btn">×</div>
-        </div>
-      </div>
-      <div class="winamp-display">
-        <div class="winamp-marquee">
-          <span>*** SONIC SPACESHIP - RECONNECT WITH YOUR VOICE ***</span>
-        </div>
-        <div class="winamp-visualizer">
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-          <div class="winamp-bar"></div>
-        </div>
-        <div class="winamp-text">
-          WHEN: JANUARY 30TH, 2026<br>
-          WHERE: (PORTAL 01) ZOOM<br> 
-          COST: £50<br>
-          <br>
-          ON-BOARDING NOW.WAV<br>
-          LIMITED SPOTS AVAILABLE<br>
-        </div>
-        <button class="winamp-button">▶ JOIN NOW</button>
-      </div>
-    </div>
-  `;
-  
+
+  <script>
   document.body.appendChild(popup);
   
   const overlay = popup.querySelector('.winamp-overlay');
